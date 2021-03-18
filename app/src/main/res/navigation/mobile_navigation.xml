@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_yourprofile">
+
+    <fragment
+        android:id="@+id/nav_yourprofile"
+        android:name="com.example.cookingrecipes.ui.YourProfile.YourProfileFragment"
+        android:label="@string/menu_yourProfile"
+        tools:layout="@layout/fragment_YourProfile" />
+
+    <fragment
+        android:id="@+id/nav_savedRecipes"
+        android:name="com.example.cookingrecipes.ui.SavedRecipes.SavedRecipesFragment"
+        android:label="@string/menu_savedRecipes"
+        tools:layout="@layout/fragment_savedrecipes" />
+
+    <fragment
+        android:id="@+id/nav_slideshow"
+        android:name="com.example.cookingrecipes.ui.slideshow.SlideshowFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_tools"
+        android:name="com.example.cookingrecipes.ui.tools.ToolsFragment"
+        android:label="@string/menu_tools"
+        tools:layout="@layout/fragment_tools" />
+
+    <fragment
+        android:id="@+id/nav_share"
+        android:name="com.example.cookingrecipes.ui.share.ShareFragment"
+        android:label="@string/menu_share"
+        tools:layout="@layout/fragment_share" />
+
+    <fragment
+        android:id="@+id/nav_send"
+        android:name="com.example.cookingrecipes.ui.send.SendFragment"
+        android:label="@string/menu_send"
+        tools:layout="@layout/fragment_send" />
+</navigation>
