@@ -9,7 +9,7 @@
         android:id="@+id/nav_yourprofile"
         android:name="com.example.cookingrecipes.ui.YourProfile.YourProfileFragment"
         android:label="@string/menu_yourProfile"
-        tools:layout="@layout/fragment_YourProfile" />
+        tools:layout="@layout/fragment_yourprofile" />
 
     <fragment
         android:id="@+id/nav_savedRecipes"
@@ -18,10 +18,10 @@
         tools:layout="@layout/fragment_savedrecipes" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.cookingrecipes.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_login"
+        android:name="com.example.cookingrecipes.ui.login.LoginFragment"
+        android:label="@string/menu_login"
+        tools:layout="@layout/fragment_login" />
 
     <fragment
         android:id="@+id/nav_tools"
