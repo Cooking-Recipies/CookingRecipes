@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.cookingrecipes.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class SavedRecipesFragment : Fragment() {
 
@@ -22,10 +23,8 @@ class SavedRecipesFragment : Fragment() {
         savedRecipesModel =
                 ViewModelProviders.of(this).get(SavedRecipesModel::class.java)
         val root = inflater.inflate(R.layout.fragment_savedrecipes, container, false)
-        val textView: TextView = root.findViewById(R.id.text_savedRecipes)
-        savedRecipesModel.text.observe(this, Observer {
-            textView.text = it
-        })
+        var addBtn: FloatingActionButton = root.findViewById(R.id.addBtn)
+
         return root
     }
 }
