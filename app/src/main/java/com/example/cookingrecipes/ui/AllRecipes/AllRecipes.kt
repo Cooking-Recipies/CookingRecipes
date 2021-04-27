@@ -7,8 +7,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.cookingrecipes.AddNewRecipeActivity
+import com.example.cookingrecipes.MainActivity
 import com.example.cookingrecipes.R
-import com.example.cookingrecipes.ui.AddRecipe.AddNewRecipeFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class AllRecipes : Fragment() {
@@ -25,6 +26,11 @@ class AllRecipes : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.all_recipes_fragment, container, false)
+        addBtn = root.findViewById(R.id.addBtn)
+        addBtn.setOnClickListener {
+            val intent = Intent(activity,AddNewRecipeActivity::class.java)
+            activity?.startActivity(intent)
+        }
         return root
     }
 

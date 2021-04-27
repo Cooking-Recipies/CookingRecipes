@@ -1,5 +1,6 @@
 package com.example.cookingrecipes.ui.login
 
+import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.annotation.StringRes
@@ -15,8 +16,11 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import com.example.cookingrecipes.AddNewRecipeActivity
 
 import com.example.cookingrecipes.R
+import kotlinx.android.synthetic.main.fragment_login.*
+import com.example.cookingrecipes.RegisterActivity as RegisterActivity
 
 class LoginFragment : Fragment() {
 
@@ -39,6 +43,8 @@ class LoginFragment : Fragment() {
         val passwordEditText = view.findViewById<EditText>(R.id.password)
         val loginButton = view.findViewById<Button>(R.id.login)
         val loadingProgressBar = view.findViewById<ProgressBar>(R.id.loading)
+        val registerButton = view.findViewById<Button>(R.id.register)
+
 
         loginViewModel.loginFormState.observe(viewLifecycleOwner,
             Observer { loginFormState ->
@@ -100,6 +106,12 @@ class LoginFragment : Fragment() {
                 usernameEditText.text.toString(),
                 passwordEditText.text.toString()
             )
+        }
+        
+        registerButton.isEnabled = true
+        registerButton.setOnClickListener {
+            val intent = Intent(activity, RegisterActivity::class.java)
+            activity?.startActivity(intent)
         }
     }
 

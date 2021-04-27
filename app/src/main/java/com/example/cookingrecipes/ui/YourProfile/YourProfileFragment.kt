@@ -17,7 +17,6 @@ import com.example.cookingrecipes.MainActivity
 import com.example.cookingrecipes.R
 import com.example.cookingrecipes.data.model.ProfileModel
 import com.example.cookingrecipes.data.repositories.SelectedProfileRepository
-import com.example.cookingrecipes.ui.AddRecipe.AddNewRecipeFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class YourProfileFragment : Fragment() {
