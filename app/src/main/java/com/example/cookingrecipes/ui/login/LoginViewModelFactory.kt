@@ -3,7 +3,7 @@ package com.example.cookingrecipes.ui.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.cookingrecipes.data.LoginDataSource
-import com.example.cookingrecipes.data.LoginRepository
+import com.example.cookingrecipes.data.repositories.LoginRepository
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.

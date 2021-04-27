@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import android.util.Patterns
-import com.example.cookingrecipes.data.LoginRepository
+import com.example.cookingrecipes.data.repositories.LoginRepository
 import com.example.cookingrecipes.data.Result
 
 import com.example.cookingrecipes.R

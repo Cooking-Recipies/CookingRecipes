@@ -1,5 +1,9 @@
-package com.example.cookingrecipes.data
+package com.example.cookingrecipes.data.repositories
 
+import com.example.cookingrecipes.Api.ApiClient
+import com.example.cookingrecipes.Api.ApiInterface
+import com.example.cookingrecipes.data.LoginDataSource
+import com.example.cookingrecipes.data.Result
 import com.example.cookingrecipes.data.model.LoggedInUser
 
 /**
@@ -15,10 +19,9 @@ class LoginRepository(val dataSource: LoginDataSource) {
 
     val isLoggedIn: Boolean
         get() = user != null
-
+    private var apiInterface: ApiInterface?=null
     init {
-        // If user credentials will be cached in local storage, it is recommended it be encrypted
-        // @see https://developer.android.com/training/articles/keystore
+        apiInterface = ApiClient.getApiClient().create(ApiInterface::class.java)
         user = null
     }
 
@@ -26,6 +29,7 @@ class LoginRepository(val dataSource: LoginDataSource) {
         user = null
         dataSource.logout()
     }
+
 
     fun login(username: String, password: String): Result<LoggedInUser> {
         // handle login

@@ -23,7 +23,6 @@ class SavedRecipesFragment : Fragment() {
         savedRecipesModel =
                 ViewModelProviders.of(this).get(SavedRecipesModel::class.java)
         val root = inflater.inflate(R.layout.fragment_savedrecipes, container, false)
-        var addBtn: FloatingActionButton = root.findViewById(R.id.addBtn)
 
         return root
     }
