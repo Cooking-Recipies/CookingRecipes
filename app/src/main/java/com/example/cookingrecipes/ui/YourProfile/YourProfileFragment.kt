@@ -58,7 +58,7 @@ class YourProfileFragment : Fragment() {
         your_name.text = dataProfile.data.name
         your_description.text = dataProfile.data.description
         Picasso.get()
-            .load(dataProfile.data?.photo_id?.data?.url)
+            .load(dataProfile.data.photo_id.data.url)
             .into(your_photo)
     }
 }

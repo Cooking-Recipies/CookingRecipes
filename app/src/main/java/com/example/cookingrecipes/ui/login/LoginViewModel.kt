@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import android.util.Patterns
+import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.AndroidViewModel
@@ -27,21 +28,21 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
-    private lateinit var navView: NavigationView
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
+
     @SuppressLint("StaticFieldLeak")
     private val context = getApplication<Application>().applicationContext
 
-    fun login(username: String, password: String) {
+    fun login(username: String, password: String, view: View) {
         // can be launched in a separate asynchronous job
-
+        val navView = view.findViewById<NavigationView>(R.id.nav_view)
         RetrofitClient.instance.loginUser(username,password).enqueue(object: retrofit2.Callback<LoginRequest> {
             override fun onResponse(call: Call<LoginRequest>, response: Response<LoginRequest>) {
                 if (response.body() != null) {
                     SharedPreferenceManager.getInstance(context).saveUser(LoginRequest(response.body()?.token))
-                    navView.findViewById<NavigationView>(R.id.nav_view).menu.clear()
-                    navView.findViewById<NavigationView>(R.id.nav_view).inflateMenu(R.menu.activity_main_drawer_when_logged_in)
+                    navView.menu.clear()
+                    navView.inflateMenu(R.menu.activity_main_drawer_when_logged_in)
                     val intent = Intent(context,MainActivity::class.java)
                     context.startActivity(intent)
                 }

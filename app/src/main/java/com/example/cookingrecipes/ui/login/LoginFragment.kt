@@ -27,7 +27,6 @@ import com.example.cookingrecipes.data.storage.SharedPreferenceManager
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
-import com.facebook.GraphRequest
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.android.material.navigation.NavigationView
@@ -36,12 +35,11 @@ import kotlinx.android.synthetic.main.fragment_login.*
 import java.lang.Exception
 import java.util.*
 
-@Suppress("DEPRECATION")
+
 class LoginFragment : Fragment() {
 
     private lateinit var loginViewModel: LoginViewModel
     lateinit var callbackManager: CallbackManager
-    private lateinit var navView: NavigationView
 
     private val EMAIL = "email"
     override fun onCreateView(
@@ -54,8 +52,6 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
-//            .get(LoginViewModel::class.java)
         loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         val usernameEditText = view.findViewById<EditText>(R.id.username)
         val passwordEditText = view.findViewById<EditText>(R.id.password)
@@ -63,35 +59,23 @@ class LoginFragment : Fragment() {
         val loadingProgressBar = view.findViewById<ProgressBar>(R.id.loading)
         val registerButton = view.findViewById<Button>(R.id.register)
         val facebookButton = view.findViewById<com.facebook.login.widget.LoginButton>(R.id.login_facebook)
+        val navView = view.findViewById<NavigationView>(R.id.nav_view)
 
         facebookButton.setReadPermissions(Arrays.asList(EMAIL))
 
         callbackManager = CallbackManager.Factory.create()
-        facebookButton.setOnClickListener(View.OnClickListener {
-            LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email"))
+        facebookButton.setOnClickListener {
+            LoginManager.getInstance()
+                .logInWithReadPermissions(this, Arrays.asList("public_profile", "email"))
             LoginManager.getInstance().registerCallback(callbackManager,
                 object : FacebookCallback<com.facebook.login.LoginResult> {
                     override fun onSuccess(loginResult: LoginResult) {
-                        val graphRequest = GraphRequest.newMeRequest(loginResult?.accessToken){obj, response ->
 
-                            try {
-                                if(obj.has("id")){
-                                    Log.d("DATANAME",obj.getString("name"))
-                                    Log.d("DATAEMAIL", obj.getString("email"))
-                                    Log.d("DATAPICTURE", obj.getString("picture"))
-                                }
-                            }catch (e:Exception){}
-                        }
-                        SharedPreferenceManager.getInstance(requireContext()).saveUser(LoginRequest(loginResult?.accessToken.toString()))
+                        SharedPreferenceManager.getInstance(requireContext())
+                            .saveUser(LoginRequest(loginResult.accessToken.toString()))
 
-
-                        val param = Bundle()
-                        param.putString("fields", "name, email, id, picture.type(medium)")
-                        graphRequest.parameters = param
-                        graphRequest.executeAsync()
-
-                        navView.findViewById<NavigationView>(R.id.nav_view).menu.clear()
-                        navView.findViewById<NavigationView>(R.id.nav_view).inflateMenu(R.menu.activity_main_drawer_when_logged_in)
+                        navView.menu.clear()
+                        navView.inflateMenu(R.menu.activity_main_drawer_when_logged_in)
                         val intent = Intent(context, MainActivity::class.java)
                         context?.startActivity(intent)
                     }
@@ -106,7 +90,7 @@ class LoginFragment : Fragment() {
 
                     }
                 })
-        })
+        }
 
         loginViewModel.loginFormState.observe(viewLifecycleOwner,
             Observer { loginFormState ->
@@ -154,7 +138,8 @@ class LoginFragment : Fragment() {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 loginViewModel.login(
                     usernameEditText.text.toString(),
-                    passwordEditText.text.toString()
+                    passwordEditText.text.toString(),
+                    view
                 )
             }
             false
@@ -164,7 +149,8 @@ class LoginFragment : Fragment() {
             loadingProgressBar.visibility = View.VISIBLE
             loginViewModel.login(
                 usernameEditText.text.toString(),
-                passwordEditText.text.toString()
+                passwordEditText.text.toString(),
+                view
             )
         }
 
