@@ -7,19 +7,25 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cookingrecipes.AddNewRecipeActivity
+import com.example.cookingrecipes.Api.RetrofitClient
 import com.example.cookingrecipes.MainActivity
 import com.example.cookingrecipes.R
+import com.example.cookingrecipes.data.model.DataProfile
+import com.example.cookingrecipes.data.model.DataRecipes
+import com.example.cookingrecipes.data.model.RecipesModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.all_recipes_fragment.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
 
 class AllRecipes : Fragment() {
-
+    private lateinit var adapter: RecipesAdapter
     private lateinit var addBtn: FloatingActionButton
-    companion object {
-        fun newInstance() = AllRecipes()
-    }
-
-    private lateinit var viewModel: AllRecipesViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,12 +37,29 @@ class AllRecipes : Fragment() {
             val intent = Intent(activity,AddNewRecipeActivity::class.java)
             activity?.startActivity(intent)
         }
+
+        RetrofitClient.instance.fetchAllRecipes().enqueue(object: Callback<List<DataRecipes>> {
+            override fun onResponse(
+                call: Call<List<DataRecipes>>,
+                response: Response<List<DataRecipes>>
+            ) {
+                adapter = RecipesAdapter()
+                tasksRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+                tasksRecyclerView.adapter = adapter
+                response.body()?.let { adapter.setData(it) }
+            }
+
+            override fun onFailure(call: Call<List<DataRecipes>>, t: Throwable) {
+                Toast.makeText(activity,"something went wrong with showing recipes",Toast.LENGTH_SHORT).show()
+                println("wtf")
+            }
+
+        })
+
+
         return root
+
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(AllRecipesViewModel::class.java)
-    }
 
 }

@@ -1,6 +1,6 @@
 package com.example.cookingrecipes.data.repositories
 
-import com.example.cookingrecipes.Api.ApiClient
+//import com.example.cookingrecipes.Api.ApiClient
 import com.example.cookingrecipes.Api.ApiInterface
 import com.example.cookingrecipes.data.LoginDataSource
 import com.example.cookingrecipes.data.Result
@@ -21,7 +21,7 @@ class LoginRepository(val dataSource: LoginDataSource) {
         get() = user != null
     private var apiInterface: ApiInterface?=null
     init {
-        apiInterface = ApiClient.getApiClient().create(ApiInterface::class.java)
+//        apiInterface = ApiClient.getApiClient().create(ApiInterface::class.java)
         user = null
     }
 

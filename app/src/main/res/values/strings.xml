@@ -13,7 +13,7 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
-    <string name="categories">Categories</string>
+
     <string name="title_of_recipe">Title of recipe</string>
     <string name="photo_of_recipe">photo of recipe</string>
     <string name="all_recipes">All Recipes</string>
@@ -29,6 +29,7 @@
     <string name="addIngredients">Click to add Ingredient!</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
+    <string name="name">Name</string>
     <string name="prompt_password">Password</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="action_sign_in">Sign in</string>
@@ -37,10 +38,15 @@
     <string name="action_login_with_facebook">Login with facebook</string>
     <string name="add">Add</string>
     <string name="welcome">"Welcome!"</string>
-    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_username">Not a valid email</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="description_of_the_recipe">Description of the recipe</string>
+    <string name="categories">Categories</string>
+    <string name="tags">Tags</string>
+    <string name="facebook_app_id">458476595216657</string>
+    <string name="fb_login_protocol_scheme">fb458476595216657</string>
 
 </resources>

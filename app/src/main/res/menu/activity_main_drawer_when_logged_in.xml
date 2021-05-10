@@ -9,10 +9,14 @@
             android:icon="@drawable/ic_baseline_food_bank_24"
             android:title="@string/all_recipes" />
         <item
-            android:id="@+id/nav_login"
-            android:visible="true"
-            android:icon="@android:drawable/ic_partial_secure"
-            android:title="@string/menu_login" />
+            android:id="@+id/nav_yourprofile"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/menu_yourProfile" />
+        <item
+            android:id="@+id/nav_savedRecipes"
+            android:icon="@drawable/ic_menu_savedrecipes"
+            android:title="@string/menu_savedRecipes" />
+
         <item
             android:id="@+id/nav_categories"
             android:icon="@drawable/ic_menu_manage"

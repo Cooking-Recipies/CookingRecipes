@@ -1,34 +1,42 @@
 package com.example.cookingrecipes.Api
 
-import com.example.cookingrecipes.data.model.LoginModel
-import com.example.cookingrecipes.data.model.PhotoModel
-import com.example.cookingrecipes.data.model.ProfileModel
+import com.example.cookingrecipes.data.model.*
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import retrofit2.http.*
 
 
 interface ApiInterface {
-    @GET("profiles")
-    fun fetchAllProfiles(): Call<List<ProfileModel>>
+    @GET("api/profiles")
+    fun fetchAllProfiles(): List<ProfileModel>
 
-    @GET("users/me/photos")
-    fun fetchAllPhotos(): Call<List<PhotoModel>>
+    @GET("api/users/me/photos")
+    fun fetchAllPhotos(): List<PhotoModel>
 
-    @GET("profiles/me")
-    fun fetchMyProfile(): Call<ProfileModel>
+    @GET("api/profiles/me")
+    fun fetchMyProfile(): Call<DataProfile>
 
-    @GET("profiles/1")
-    fun fetchSelectedProfile(): Call<ProfileModel>
+    @GET("api/profiles/1")
+    fun fetchSelectedProfile(): Call<DataProfile>
 
-    @Headers("token")
-    @POST("login")
-    fun loginUser(@Body info: LoginModel): Call<ResponseBody>
+    @GET("api/recipes")
+    fun fetchAllRecipes(): Call<List<DataRecipes>>
+
+    @FormUrlEncoded
+    @POST("api/login")
+    fun loginUser(@Field("email")email:String,@Field("password")password:String): Call<LoginRequest>
+
+    @FormUrlEncoded
+    @POST("api/register")
+    fun userRegister(
+        @Field("email") email:String,
+        @Field("userName") username:String,
+        @Field("password") password:String,
+        @Field("password_confirmation")password_confirmation:String
+    ):Call<userRegister>
 }
