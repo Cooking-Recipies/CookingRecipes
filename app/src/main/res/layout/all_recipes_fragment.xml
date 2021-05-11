@@ -3,9 +3,49 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <Button
+        android:id="@+id/buttonAscendingByDate"
+        android:layout_width="0dp"
+        android:layout_weight=".20"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        android:text="@string/ascending_date"
+        android:clickable="true" />
+    <Button
+        android:id="@+id/buttonDescendingByDate"
+        android:layout_width="0dp"
+        android:layout_weight=".20"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        android:text="@string/descending_date"
+        android:clickable="true"
+        />
+    <Button
+        android:id="@+id/buttonAscendingByName"
+        android:layout_width="0dp"
+        android:layout_weight=".20"
+        android:textSize="10sp"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:text="@string/ascending_name"
+        />
+    <Button
+        android:id="@+id/buttonDescendingByName"
+        android:layout_width="0dp"
+        android:layout_weight=".20"
+        android:textSize="10sp"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:text="@string/descending_name"
+        />
+    </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasksRecyclerView"
+        android:layout_below="@id/layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -21,4 +61,8 @@
         android:clickable="true"
         android:contentDescription="@string/add"
         android:src="@drawable/ic_baseline_library_add_24" />
+
+
+
+
 </RelativeLayout>

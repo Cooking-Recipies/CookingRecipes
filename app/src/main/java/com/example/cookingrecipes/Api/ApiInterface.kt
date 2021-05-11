@@ -20,7 +20,7 @@ interface ApiInterface {
     fun fetchAllPhotos(): List<PhotoModel>
 
     @GET("api/profiles/me")
-    fun fetchMyProfile(): Call<DataProfile>
+    fun fetchMyProfile(@Header("token")token:String): Call<DataProfile>
 
     @GET("api/profiles/1")
     fun fetchSelectedProfile(): Call<DataProfile>
@@ -43,4 +43,5 @@ interface ApiInterface {
         @Field("password") password:String,
         @Field("password_confirmation")password_confirmation:String
     ):Call<userRegister>
+
 }

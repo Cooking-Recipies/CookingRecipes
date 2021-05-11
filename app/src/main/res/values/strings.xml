@@ -50,5 +50,11 @@
     <string name="fb_login_protocol_scheme">fb458476595216657</string>
     <string name="nameofingredient">NameOfIngredient</string>
     <string name="amount">amount</string>
+    <string name="category">category</string>
+    <string name="ascending_name">Ascending name</string>
+    <string name="descending_name">Descending name</string>
+    <string name="descending_date">Descending date</string>
+    <string name="ascending_date">Ascending date</string>
+    <string name="sign_out">Sign out</string>
 
 </resources>

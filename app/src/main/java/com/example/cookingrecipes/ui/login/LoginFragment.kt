@@ -19,6 +19,7 @@ import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.cookingrecipes.Api.RetrofitClient
 import com.example.cookingrecipes.MainActivity
 import com.example.cookingrecipes.R
 import com.example.cookingrecipes.RegisterActivity
@@ -32,6 +33,8 @@ import com.facebook.login.LoginResult
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_login.*
+import retrofit2.Call
+import retrofit2.Response
 import java.lang.Exception
 import java.util.*
 
@@ -59,7 +62,6 @@ class LoginFragment : Fragment() {
         val loadingProgressBar = view.findViewById<ProgressBar>(R.id.loading)
         val registerButton = view.findViewById<Button>(R.id.register)
         val facebookButton = view.findViewById<com.facebook.login.widget.LoginButton>(R.id.login_facebook)
-        val navView = view.findViewById<NavigationView>(R.id.nav_view)
 
         facebookButton.setReadPermissions(Arrays.asList(EMAIL))
 
@@ -74,8 +76,8 @@ class LoginFragment : Fragment() {
                         SharedPreferenceManager.getInstance(requireContext())
                             .saveUser(LoginRequest(loginResult.accessToken.toString()))
 
-                        navView.menu.clear()
-                        navView.inflateMenu(R.menu.activity_main_drawer_when_logged_in)
+//                        navView.menu.clear()
+//                        navView.inflateMenu(R.menu.activity_main_drawer_when_logged_in)
                         val intent = Intent(context, MainActivity::class.java)
                         context?.startActivity(intent)
                     }
@@ -136,10 +138,9 @@ class LoginFragment : Fragment() {
         passwordEditText.addTextChangedListener(afterTextChangedListener)
         passwordEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                loginViewModel.login(
+                login(
                     usernameEditText.text.toString(),
-                    passwordEditText.text.toString(),
-                    view
+                    passwordEditText.text.toString()
                 )
             }
             false
@@ -147,10 +148,9 @@ class LoginFragment : Fragment() {
 
         loginButton.setOnClickListener {
             loadingProgressBar.visibility = View.VISIBLE
-            loginViewModel.login(
+            login(
                 usernameEditText.text.toString(),
-                passwordEditText.text.toString(),
-                view
+                passwordEditText.text.toString()
             )
         }
 
@@ -161,6 +161,24 @@ class LoginFragment : Fragment() {
         }
     }
 
+    fun login(username: String, password: String) {
+        // can be launched in a separate asynchronous job
+        RetrofitClient.instance.loginUser(username,password).enqueue(object: retrofit2.Callback<LoginRequest> {
+            override fun onResponse(call: Call<LoginRequest>, response: Response<LoginRequest>) {
+                if (response.body() != null) {
+                    SharedPreferenceManager.getInstance(requireContext()).saveUser(LoginRequest(response.body()?.token))
+
+                    val intent = Intent(context,MainActivity::class.java)
+                    context?.startActivity(intent)
+                }
+            }
+
+            override fun onFailure(call: Call<LoginRequest>, t: Throwable) {
+                println(t.message)
+            }
+
+        })
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 

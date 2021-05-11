@@ -5,16 +5,18 @@ import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
+import android.view.MenuItem
+import androidx.navigation.ui.*
 import com.example.cookingrecipes.R.id.nav_host_fragment
+import com.example.cookingrecipes.R.id.nav_logout
+import com.example.cookingrecipes.data.storage.SharedPreferenceManager
+import com.example.cookingrecipes.ui.AllRecipes.AllRecipes
+import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,6 +38,24 @@ class MainActivity : AppCompatActivity() {
             R.id.nav_yourprofile, R.id.nav_savedRecipes, R.id.nav_login), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        navView.setNavigationItemSelectedListener {
+            dest-> when(dest.itemId){
+                R.id.nav_logout -> logout()
+            else-> {
+                NavigationUI.onNavDestinationSelected(dest, navController)
+            }
+            }
+            true
+        }
+        if(SharedPreferenceManager.getInstance(this).isLoggedIn !="") {
+            navView.menu.clear()
+            navView.inflateMenu(R.menu.activity_main_drawer_when_logged_in)
+        }
+        if(SharedPreferenceManager.getInstance(this).isLoggedIn==""){
+            navView.menu.clear()
+            navView.inflateMenu(R.menu.activity_main_drawer)
+
+        }
 
     }
 
@@ -47,6 +67,13 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+
+    private fun logout(){
+        SharedPreferenceManager.getInstance(this).clearUser()
+        intent =Intent(this, MainActivity::class.java)
+        startActivity(intent)
     }
 
 }

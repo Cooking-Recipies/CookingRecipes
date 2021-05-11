@@ -30,38 +30,12 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
     val loginFormState: LiveData<LoginFormState> = _loginForm
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
+    private lateinit var navView: NavigationView
 
     @SuppressLint("StaticFieldLeak")
     private val context = getApplication<Application>().applicationContext
 
-    fun login(username: String, password: String, view: View) {
-        // can be launched in a separate asynchronous job
-        val navView = view.findViewById<NavigationView>(R.id.nav_view)
-        RetrofitClient.instance.loginUser(username,password).enqueue(object: retrofit2.Callback<LoginRequest> {
-            override fun onResponse(call: Call<LoginRequest>, response: Response<LoginRequest>) {
-                if (response.body() != null) {
-                    SharedPreferenceManager.getInstance(context).saveUser(LoginRequest(response.body()?.token))
-                    navView.menu.clear()
-                    navView.inflateMenu(R.menu.activity_main_drawer_when_logged_in)
-                    val intent = Intent(context,MainActivity::class.java)
-                    context.startActivity(intent)
-                }
-            }
 
-            override fun onFailure(call: Call<LoginRequest>, t: Throwable) {
-                Toast.makeText(context,"something went wrong", Toast.LENGTH_LONG).show()
-            }
-
-        })
-//        val result = loginRepository.login(username, password)
-//
-//        if (result is Result.Success) {
-//            _loginResult.value =
-//                LoginResult(success = LoggedInUserView(displayName = result.data.displayName))
-//        } else {
-//            _loginResult.value = LoginResult(error = R.string.login_failed)
-//        }
-    }
 
     fun loginDataChanged(username: String, password: String) {
         if (!isUserNameValid(username)) {

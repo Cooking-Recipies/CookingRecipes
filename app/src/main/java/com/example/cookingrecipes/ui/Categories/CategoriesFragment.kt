@@ -1,5 +1,6 @@
 package com.example.cookingrecipes.ui.Categories
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -9,7 +10,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.cookingrecipes.Api.RetrofitClient
+import com.example.cookingrecipes.CategorizedRecipes
 import com.example.cookingrecipes.R
+import com.example.cookingrecipes.SelectedRecipe
 import com.example.cookingrecipes.data.model.DataRecipes
 import com.example.cookingrecipes.ui.AllRecipes.RecipesAdapter
 import kotlinx.android.synthetic.main.all_recipes_fragment.*
@@ -22,7 +25,7 @@ import retrofit2.Response
 /**
  * A fragment representing a list of Items.
  */
-class CategoriesFragment : Fragment() {
+class CategoriesFragment : Fragment(), CategoriesRecyclerViewAdapter.OnClickListener {
 
     private lateinit var recipesList: DataRecipes
     private lateinit var categoriesAdapter: CategoriesRecyclerViewAdapter
@@ -64,7 +67,13 @@ class CategoriesFragment : Fragment() {
         for (i in recipesList.data.indices){
             listOfCategories.add(recipesList.data.get(i).category)
         }
-        categoriesAdapter = CategoriesRecyclerViewAdapter(listOfCategories.distinct())
+        categoriesAdapter = CategoriesRecyclerViewAdapter(listOfCategories.distinct(),this)
         list.adapter = categoriesAdapter
+    }
+
+    override fun onItemClick(category: String) {
+        val intent = Intent(activity, CategorizedRecipes::class.java)
+        intent.putExtra("CategoryName", category)
+        activity?.startActivity(intent)
     }
 }

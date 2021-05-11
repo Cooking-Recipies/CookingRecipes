@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.cookingrecipes.R
-
+import com.example.cookingrecipes.data.model.RecipesModel
+import com.example.cookingrecipes.ui.AllRecipes.RecipesAdapter
 
 
 class CategoriesRecyclerViewAdapter(
-    private val categories: List<String>
+    private val categories: List<String>,
+    val onClickListener: OnClickListener
 ) : RecyclerView.Adapter<CategoriesRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -22,6 +24,13 @@ class CategoriesRecyclerViewAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = categories[position]
         holder.contentView.text = item
+
+        holder.itemView.apply {
+            holder.itemView.setOnClickListener{
+            onClickListener.onItemClick(item)
+            }
+        }
+
     }
 
     override fun getItemCount(): Int = categories.size
@@ -30,5 +39,9 @@ class CategoriesRecyclerViewAdapter(
 
         val contentView: TextView = view.findViewById(R.id.content)
 
+    }
+
+    interface OnClickListener{
+        fun onItemClick(category:String)
     }
 }
