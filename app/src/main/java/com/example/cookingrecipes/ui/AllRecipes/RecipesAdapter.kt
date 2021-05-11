@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.view.menu.ActionMenuItemView
@@ -30,12 +31,16 @@ class RecipesAdapter(private val listOfRecipes: DataRecipes, val onClickListener
         val category : TextView
         val tags : TextView
         val photo : ImageView
+        val likesCounter: TextView
+        val like: ImageView
 //
         init{
             title = itemView.findViewById(R.id.TitleTV)
             category = itemView.findViewById(R.id.Categories)
             tags = itemView.findViewById(R.id.tags)
             photo = itemView.findViewById(R.id.Recipe_photo)
+            likesCounter = itemView.findViewById(R.id.LikesNumber)
+            like = itemView.findViewById(R.id.imageButton)
         }
 
     }
@@ -46,6 +51,7 @@ class RecipesAdapter(private val listOfRecipes: DataRecipes, val onClickListener
             holder.itemView.setOnClickListener {
                 onClickListener.onItemClick(item,item.recipe_id)
             }
+            holder.likesCounter.text = item.likes.likes_count.toString()
             holder.title.text = item.title
             holder.category.text = item.category
             holder.tags.text = item.tags.toString()

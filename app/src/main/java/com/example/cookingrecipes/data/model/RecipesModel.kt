@@ -10,5 +10,5 @@ data class RecipesModel(
     var category: String,
     var tags: List<String>,
     var photos: List<DataPhoto?>,
-    var likes: LikesModel?
+    var likes: LikesModel
 )

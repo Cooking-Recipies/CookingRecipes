@@ -117,4 +117,5 @@ class AllRecipes : Fragment(), RecipesAdapter.OnClickListener {
     }
 
 
+
 }

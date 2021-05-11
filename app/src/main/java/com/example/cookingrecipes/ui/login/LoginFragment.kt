@@ -74,7 +74,7 @@ class LoginFragment : Fragment() {
                     override fun onSuccess(loginResult: LoginResult) {
 
                         SharedPreferenceManager.getInstance(requireContext())
-                            .saveUser(LoginRequest(loginResult.accessToken.toString()))
+                            .saveUser(LoginRequest(loginResult.accessToken.toString(),email = ""))
 
 //                        navView.menu.clear()
 //                        navView.inflateMenu(R.menu.activity_main_drawer_when_logged_in)
@@ -166,7 +166,7 @@ class LoginFragment : Fragment() {
         RetrofitClient.instance.loginUser(username,password).enqueue(object: retrofit2.Callback<LoginRequest> {
             override fun onResponse(call: Call<LoginRequest>, response: Response<LoginRequest>) {
                 if (response.body() != null) {
-                    SharedPreferenceManager.getInstance(requireContext()).saveUser(LoginRequest(response.body()?.token))
+                    SharedPreferenceManager.getInstance(requireContext()).saveUser(LoginRequest(response.body()?.token,username))
 
                     val intent = Intent(context,MainActivity::class.java)
                     context?.startActivity(intent)

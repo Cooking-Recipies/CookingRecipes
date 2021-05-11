@@ -45,7 +45,7 @@
             />
         <TextView
             android:id="@+id/tags"
-            android:layout_width="wrap_content"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/Categories"
             android:layout_toEndOf="@id/Recipe_photo"
@@ -53,7 +53,14 @@
             android:text="@string/tags"
             android:layout_marginStart="10dp"
             />
-
+        <TextView
+            android:id="@+id/LikesNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imageButton"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="25dp"
+            />
         <ImageView
             android:id="@+id/Recipe_photo"
             android:layout_width="wrap_content"

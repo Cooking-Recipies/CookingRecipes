@@ -24,7 +24,7 @@ class SharedPreferenceManager private constructor(private val context:Context){
     val user: LoginRequest
     get(){
         val sharedPreferences = context.getSharedPreferences("shared_prefferences", Context.MODE_PRIVATE)
-        return LoginRequest(sharedPreferences.getString("token",""))
+        return LoginRequest(sharedPreferences.getString("token",""),sharedPreferences.getString("email",""))
     }
 
     fun saveUser(user: LoginRequest) {

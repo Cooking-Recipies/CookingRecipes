@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import androidx.navigation.ui.*
 import com.example.cookingrecipes.R.id.nav_host_fragment
 import com.example.cookingrecipes.R.id.nav_logout
@@ -32,6 +33,8 @@ class MainActivity : AppCompatActivity() {
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(nav_host_fragment)
+        val navHeadearView = navView.getHeaderView(0)
+        var email = navHeadearView.findViewById<TextView>(R.id.nameNav)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(setOf(R.id.nav_allRecipes,
@@ -50,11 +53,12 @@ class MainActivity : AppCompatActivity() {
         if(SharedPreferenceManager.getInstance(this).isLoggedIn !="") {
             navView.menu.clear()
             navView.inflateMenu(R.menu.activity_main_drawer_when_logged_in)
+            email.text = SharedPreferenceManager.getInstance(this).user.email.toString()
         }
         if(SharedPreferenceManager.getInstance(this).isLoggedIn==""){
             navView.menu.clear()
             navView.inflateMenu(R.menu.activity_main_drawer)
-
+            email.text = ""
         }
 
     }
