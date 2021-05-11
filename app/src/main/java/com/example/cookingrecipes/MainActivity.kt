@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_logout -> logout()
             else-> {
                 NavigationUI.onNavDestinationSelected(dest, navController)
+                drawerLayout.closeDrawers()
             }
             }
             true
