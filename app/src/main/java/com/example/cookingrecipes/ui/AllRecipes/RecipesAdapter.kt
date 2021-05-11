@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_recipe.view.*
 import kotlinx.android.synthetic.main.fragment_yourprofile.*
 import kotlinx.android.synthetic.main.recipe_cardview.view.*
 
-class RecipesAdapter(private val listOfRecipes: DataRecipes) : RecyclerView.Adapter<RecipesAdapter.RecipesViewHolder>() {
+class RecipesAdapter(private val listOfRecipes: DataRecipes, val onClickListener: OnClickListener) : RecyclerView.Adapter<RecipesAdapter.RecipesViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipesViewHolder {
@@ -43,6 +43,9 @@ class RecipesAdapter(private val listOfRecipes: DataRecipes) : RecyclerView.Adap
     override fun onBindViewHolder(holder: RecipesViewHolder, position: Int) {
         val item = listOfRecipes.data[position]
         holder.itemView.apply {
+            holder.itemView.setOnClickListener {
+                onClickListener.onItemClick(item,item.recipe_id)
+            }
             holder.title.text = item.title
             holder.category.text = item.category
             holder.tags.text = item.tags.toString()
@@ -58,4 +61,7 @@ class RecipesAdapter(private val listOfRecipes: DataRecipes) : RecyclerView.Adap
         return listOfRecipes.data.size
     }
 
+    interface OnClickListener{
+        fun onItemClick(recipesModel: RecipesModel,id:Int)
+    }
 }

@@ -10,4 +10,5 @@
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
     tools:context=".ui.Categories.CategoriesFragment"
-    tools:listitem="@layout/fragment_categories" />
+    tools:listitem="@layout/fragment_categories"
+    />

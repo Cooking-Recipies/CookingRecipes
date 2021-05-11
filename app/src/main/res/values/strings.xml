@@ -48,5 +48,7 @@
     <string name="tags">Tags</string>
     <string name="facebook_app_id">458476595216657</string>
     <string name="fb_login_protocol_scheme">fb458476595216657</string>
+    <string name="nameofingredient">NameOfIngredient</string>
+    <string name="amount">amount</string>
 
 </resources>

@@ -28,8 +28,8 @@ interface ApiInterface {
     @GET("api/recipes")
     fun fetchAllRecipes(): Call<DataRecipes>
 
-    @GET("api/recipes/1")
-    fun fetchSelectedRecipe(): Call<RecipeDetailModel>
+    @GET("api/recipes/{id}")
+    fun fetchSelectedRecipe(@Path("id") id:Int): Call<DataRecipeDetailModel>
 
     @FormUrlEncoded
     @POST("api/login")

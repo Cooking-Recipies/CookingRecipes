@@ -9,7 +9,7 @@ data class RecipeDetailModel(
     var preparing_time: String,
     var instruction: String,
     var created_by_logged_user: Boolean,
-    var photos: List<PhotoModel>,
+    var photos: List<PhotoModel>?,
     var components: List<ComponentsModel>,
     var tags: List<String>,
     var logged_user_liked: Boolean,

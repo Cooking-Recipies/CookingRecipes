@@ -10,10 +10,8 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.cookingrecipes.AddNewRecipeActivity
+import com.example.cookingrecipes.*
 import com.example.cookingrecipes.Api.RetrofitClient
-import com.example.cookingrecipes.MainActivity
-import com.example.cookingrecipes.R
 import com.example.cookingrecipes.data.model.DataProfile
 import com.example.cookingrecipes.data.model.DataRecipes
 import com.example.cookingrecipes.data.model.RecipesModel
@@ -24,8 +22,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class AllRecipes : Fragment() {
-    private lateinit var adapter: RecipesAdapter
+class AllRecipes : Fragment(), RecipesAdapter.OnClickListener {
     private lateinit var addBtn: FloatingActionButton
     private lateinit var recipesList: DataRecipes
     private lateinit var recipesAdapter: RecipesAdapter
@@ -60,17 +57,25 @@ class AllRecipes : Fragment() {
                 response.body()?.let {
                     recipesList = it
                 }
-
-                tasksRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-                recipesAdapter = RecipesAdapter(recipesList)
-                tasksRecyclerView.adapter = recipesAdapter
+                initRecyclerView(view)
             }
 
             override fun onFailure(call: Call<DataRecipes>, t: Throwable) {
                 println(t.message)
             }
-
         })
+    }
+
+    private fun initRecyclerView(view: View?) {
+        tasksRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recipesAdapter = RecipesAdapter(recipesList,this)
+        tasksRecyclerView.adapter = recipesAdapter
+    }
+
+    override fun onItemClick(recipesModel: RecipesModel,id:Int) {
+            val intent = Intent(activity, SelectedRecipe::class.java)
+            intent.putExtra("ID",id)
+            activity?.startActivity(intent)
     }
 
 
